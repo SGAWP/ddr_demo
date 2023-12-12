@@ -1,0 +1,60 @@
+<h2 mat-dialog-title>{{data.title}}</h2>
+<div mat-dialog-content>
+    <form [formGroup]="form">
+        <div fxLayout="row" fxLayout.xs="column">
+            <div fxFlex="100">
+                <mat-form-field class="w-full">
+                    <mat-label>ФИО мастера</mat-label>
+                    <input matInput formControlName="master_name" maxlength="200" required>
+                    <mat-error *ngIf="form.controls.master_name.invalid">
+                        {{getMasterNameErrorMessage()}}
+                    </mat-error>
+                    <button mat-icon-button *ngIf="form.controls.master_name.value" matSuffix
+                        (click)="form.get('master_name').setValue('')" matTooltip="Очистить">
+                        <mat-icon>close</mat-icon>
+                    </button>
+                </mat-form-field>
+            </div>
+        </div>
+        <div fxLayout="row" fxLayout.xs="column">
+            <div class="mr10" fxFlex="50">
+                <mat-form-field class="w-full">
+                    <mat-label>ФИО помощника мастера</mat-label>
+                    <input matInput formControlName="assistant_master" maxlength="200">
+                    <button mat-icon-button *ngIf="form.controls.assistant_master.value" matSuffix
+                        (click)="form.get('assistant_master').setValue('')" matTooltip="Очистить">
+                        <mat-icon>close</mat-icon>
+                    </button>
+                </mat-form-field>
+            </div>
+            <div fxFlex="50">
+                <mat-form-field class="w-full">
+                    <mat-label>ФИО помощника мастера</mat-label>
+                    <input matInput formControlName="second_assistant_master" maxlength="200">
+                    <button mat-icon-button *ngIf="form.controls.second_assistant_master.value" matSuffix
+                        (click)="form.get('second_assistant_master').setValue('')" matTooltip="Очистить">
+                        <mat-icon>close</mat-icon>
+                    </button>
+                </mat-form-field>
+            </div>
+        </div>
+        <div fxLayout="row" fxLayout.xs="column">
+            <div fxFlex="100">
+                <mat-form-field class="w-full">
+                    <mat-label>Комментарий</mat-label>
+                    <textarea matInput formControlName="comment" maxlength="500"></textarea>
+                    <mat-hint align="end">{{form.controls.comment.value?.length || 0}}/500</mat-hint>
+                    <button mat-icon-button *ngIf="form.controls.comment.value" matSuffix
+                        (click)="form.get('comment').setValue('')" matTooltip="Очистить">
+                        <mat-icon>close</mat-icon>
+                    </button>
+                </mat-form-field>
+            </div>
+        </div>
+    </form>
+</div>
+<div mat-dialog-actions align="end">
+    <button mat-button color="primary" [mat-dialog-close]="true" (click)="onSave()"
+        [disabled]="form.invalid || form.disabled">Сохранить</button>
+    <button mat-button color="warn" [mat-dialog-close] cdkFocusInitial>Отменить</button>
+</div>

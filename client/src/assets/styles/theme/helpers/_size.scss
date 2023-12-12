@@ -1,0 +1,6 @@
+$size: (
+  'width'   : (property: width, class: w, values: $size),
+  'height'  : (property: height, class: h, values: $size)
+);
+
+$utilities: map-merge($size, $utilities);

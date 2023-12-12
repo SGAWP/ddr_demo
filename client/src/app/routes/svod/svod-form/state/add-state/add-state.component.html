@@ -1,0 +1,88 @@
+<h2 mat-dialog-title>{{data.title}}</h2>
+<div mat-dialog-content>
+    <form [formGroup]="form">
+        <div fxLayout="row" fxLayout.xs="column">
+            <div class="mr10" fxFlex="50">
+                <mat-form-field class="w-full">
+                    <mat-label>Время состояния</mat-label>
+                    <mat-select formControlName="state_times_id" required>
+                        <mat-option *ngFor="let st of state_times" [value]="st.state_time_id">
+                            {{st.state_time}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div fxFlex="50">
+                <mat-form-field class="w-full">
+                    <mat-label>Глубина забоя</mat-label>
+                    <input matInput type="number" formControlName="bottom" min="0" required>
+                    <mat-error *ngIf="form.controls.bottom.invalid">{{getBottomErrorMessage()}}</mat-error>
+                    <button mat-icon-button *ngIf="form.controls.bottom.value" matSuffix
+                        (click)="form.get('bottom').setValue('')" matTooltip="Очистить">
+                        <mat-icon>close</mat-icon>
+                    </button>
+                </mat-form-field>
+            </div>
+        </div>
+        <div fxLayout="row" fxLayout.xs="column">
+            <div fxFlex="100">
+                <mat-form-field class="w-full">
+                    <input matInput class="invisible" placeholder="Баланс времени" formControlName="time_balances_id"
+                        required>
+                    <input matInput placeholder="Баланс времени" [attr.disabled]="true"
+                        formControlName="operation_short_name" class="text-black" required>
+                    <button mat-flat-button color="primary" matSuffix (click)="openDialogTimeBalance()">
+                        <mat-icon>more_horiz</mat-icon>
+                    </button>
+                    <mat-error *ngIf="form.controls.time_balances_id.invalid">
+                        {{getOperationErrorMessage()}}
+                    </mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+        <mat-card>
+            <h3>Раствор</h3>
+            <div fxLayout="row wrap">
+                <div fxFlex.gt-md="0 1 30" fxFlex="100">
+                    <mat-form-field class="w-full">
+                        <mat-label>Плотность</mat-label>
+                        <input matInput type="number" formControlName="density" min="0" required>
+                        <mat-error *ngIf="form.controls.density.invalid">{{getDensityErrorMessage()}}</mat-error>
+                        <button mat-icon-button *ngIf="form.controls.density.value" matSuffix
+                            (click)="form.get('density').setValue('')" matTooltip="Очистить">
+                            <mat-icon>close</mat-icon>
+                        </button>
+                    </mat-form-field>
+                </div>
+                <div fxFlex.gt-md="0 1 30" fxFlex="100">
+                    <mat-form-field class="w-full">
+                        <mat-label>Вязкость</mat-label>
+                        <input matInput type="number" formControlName="visconsity" min="0" required>
+                        <mat-error *ngIf="form.controls.visconsity.invalid">{{getVisconsityErrorMessage()}}</mat-error>
+                        <button mat-icon-button *ngIf="form.controls.visconsity.value" matSuffix
+                            (click)="form.get('visconsity').setValue('')" matTooltip="Очистить">
+                            <mat-icon>close</mat-icon>
+                        </button>
+                    </mat-form-field>
+                </div>
+                <div fxFlex.gt-md="0 1 40" fxFlex="100">
+                    <mat-form-field class="w-full">
+                        <mat-label>Водоотдача</mat-label>
+                        <input matInput type="number" formControlName="water_separation" min="0" required>
+                        <mat-error *ngIf="form.controls.visconsity.invalid">{{getWaterSeparationErrorMessage()}}
+                        </mat-error>
+                        <button mat-icon-button *ngIf="form.controls.water_separation.value" matSuffix
+                            (click)="form.get('water_separation').setValue('')" matTooltip="Очистить">
+                            <mat-icon>close</mat-icon>
+                        </button>
+                    </mat-form-field>
+                </div>
+            </div>
+        </mat-card>
+    </form>
+</div>
+<div mat-dialog-actions align="end">
+    <button mat-button color="primary" [mat-dialog-close]="true" (click)="onSave()"
+        [disabled]="form.invalid || form.disabled">Сохранить</button>
+    <button mat-button color="warn" [mat-dialog-close] cdkFocusInitial>Отменить</button>
+</div>

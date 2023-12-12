@@ -1,0 +1,3 @@
+$cursor: ('cursor': (property: cursor, class: cursor, values: (default: default, pointer: pointer, text: text, move: move, copy: copy, not-allowed: not-allowed)));
+
+$utilities: map-merge($cursor, $utilities);

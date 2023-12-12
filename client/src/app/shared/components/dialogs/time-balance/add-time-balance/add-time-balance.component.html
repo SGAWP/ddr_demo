@@ -1,0 +1,40 @@
+<h2 mat-dialog-title>{{data.title}}</h2>
+<div mat-dialog-content>
+    <form [formGroup]="form">
+        <div fxLayout="row" fxLayout.xs="column">
+            <div class="mr10" fxFlex="50">
+                <mat-form-field class="w-full">
+                    <input matInput class="invisible" placeholder="Содержание" formControlName="spr_operations_id"
+                        required>
+                    <input matInput placeholder="Содержание" [attr.disabled]="true"
+                        formControlName="operation_short_name" class="text-black" required>
+                    <button mat-flat-button color="primary" matSuffix (click)="openDialogOperations()">
+                        <mat-icon>more_horiz</mat-icon>
+                    </button>
+                    <mat-error *ngIf="form.controls.spr_operations_id.invalid">
+                        {{getOperationErrorMessage()}}
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div fxFlex="50">
+                <mat-form-field class="w-full">
+                    <mat-label>Длительность</mat-label>
+                    <input matInput formControlName="duration" type="number" min="0" max="999999"
+                    onKeyDown="if(this.value.length==6) return false;" required>
+                    <mat-error *ngIf="form.controls.duration.invalid">
+                        {{getDurationErrorMessage()}}
+                    </mat-error>
+                    <button mat-icon-button *ngIf="form.controls.duration.value" matSuffix
+                        (click)="form.get('duration').setValue('')" matTooltip="Очистить">
+                        <mat-icon>close</mat-icon>
+                    </button>
+                </mat-form-field>
+            </div>
+        </div>
+    </form>
+</div>
+<div mat-dialog-actions align="end">
+    <button mat-button color="primary" [mat-dialog-close]="true" (click)="onSave()"
+        [disabled]="form.invalid || form.disabled">Сохранить</button>
+    <button mat-button color="warn" [mat-dialog-close] cdkFocusInitial>Отменить</button>
+</div>

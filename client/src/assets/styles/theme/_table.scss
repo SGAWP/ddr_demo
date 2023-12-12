@@ -1,0 +1,137 @@
+.table-header {
+    background-color: #3f51b5;
+    color           : #ffffff;
+    padding         : 0 5px;
+}
+
+.table-container {
+    padding: 5px 15px 15px 15px;
+}
+
+.table-component-holder {
+    border: 1px solid #3f51b5;
+    background-color: #ffffff;
+}
+
+.tb {
+    border         : 1px solid #cccccc;
+    border-collapse: collapse;
+    margin         : 0;
+    padding        : 0;
+    width          : 100%;
+    table-layout   : fixed;
+}
+
+.tb caption {
+    font-size: 1.5em;
+    margin   : .5em 0 .75em;
+}
+
+.mat-table {
+    background: #f8f8f8;
+}
+
+.tb tr {
+    border : 1px solid #dddddd;
+    padding: .35em;
+}
+
+.tb tr:nth-child(even) td {
+    background: rgba(63, 81, 181, 0.34);
+}
+
+.tb th,
+.tb td {
+    padding   : .625em;
+    text-align: center;
+}
+
+.tb th {
+    background    : #cfcfcf;
+    // font-size     : .85em;
+    // letter-spacing: .1em;
+    // text-transform: uppercase;
+}
+
+@media screen and (max-width: 1270px) {
+    .tb {
+        border: 0;
+    }
+
+    // .tb caption {
+    //     font-size: 1.3em;
+    // }
+
+    .tb thead {
+        border  : none;
+        clip    : rect(0 0 0 0);
+        height  : 1px;
+        margin  : -1px;
+        overflow: hidden;
+        padding : 0;
+        position: absolute;
+        width   : 1px;
+    }
+
+    .tb tr {
+        border-bottom: 3px solid #dddddd;
+        display      : block;
+        margin-bottom: .625em;
+    }
+
+    .tb td {
+        border-bottom: 1px solid #dddddd;
+        display      : block;
+        font-size    : .8em;
+        text-align   : right;
+    }
+
+    .tb td:before {
+        content       : attr(data-label);
+        float         : left;
+        font-weight   : bold;
+        text-transform: uppercase;
+    }
+
+    .tb td:last-child {
+        border-bottom: 0;
+    }
+
+}
+
+mat-button-toggle-group {
+    cursor: pointer;
+}
+
+.mat-table {
+    overflow  : auto;
+    max-height: 500px;
+}
+
+.mat-header-cell {
+    color      : #303030;
+    font-weight: bold;
+}
+
+.loading-container {
+    position  : relative;
+    min-height: 100px;
+}
+
+.loading-shade {
+    position       : absolute;
+    height: 100%;
+    top            : 0;
+    left           : 0;
+    bottom         : 56px;
+    right          : 0;
+    background     : rgba(0, 0, 0, 0.15);
+    z-index        : 1;
+    display        : flex;
+    align-items    : center;
+    justify-content: center;
+}
+
+.spacer {
+    flex: 1 1 auto;
+}

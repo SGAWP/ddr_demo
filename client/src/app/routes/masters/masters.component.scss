@@ -1,0 +1,20 @@
+::ng-deep .mat-sort-header-container {
+    justify-content: center;
+}
+
+td.mat-cell:last-of-type,
+td.mat-footer-cell:last-of-type,
+th.mat-header-cell:last-of-type {
+    padding-right: 0px;
+}
+
+tr.mat-footer-row,
+tr.mat-row {
+    height: 100%;
+}
+
+td.mat-cell,
+td.mat-footer-cell,
+th.mat-header-cell {
+    padding: .625em;
+}

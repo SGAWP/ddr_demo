@@ -1,0 +1,46 @@
+<h2 mat-dialog-title>{{data.title}}</h2>
+<div mat-dialog-content>
+    <form [formGroup]="form">
+        <div fxLayout="row" fxLayout.xs="column">
+            <div class="mr10" fxFlex="75">
+                <mat-form-field class="w-full">
+                    <mat-label>Куст</mat-label>
+                    <input matInput formControlName="wellplatform_name" maxlength="100" required>
+                    <mat-error *ngIf="form.controls.wellplatform_name.invalid">
+                        {{getWellplatformNameErrorMessage()}}
+                    </mat-error>
+                    <button mat-icon-button *ngIf="form.controls.wellplatform_name.value" matSuffix
+                        (click)="form.get('wellplatform_name').setValue('')" matTooltip="Очистить">
+                        <mat-icon>close</mat-icon>
+                    </button>
+                </mat-form-field>
+            </div>
+            <div fxFlex="25">
+                <mat-checkbox formControlName="is_active" color="primary">
+                    Активность
+                </mat-checkbox>
+            </div>
+        </div>
+        <div fxLayout="row" fxLayout.xs="column">
+            <div fxFlex="100">
+                <mat-form-field class="w-full">
+                    <input matInput class="invisible" placeholder="Месторождение" formControlName="spr_oilfields_id"
+                        required>
+                    <input matInput placeholder="Месторождение" [attr.disabled]="true"
+                        formControlName="oilfield_short_name" style="color: #000000;" required>
+                    <button mat-flat-button color="primary" matSuffix (click)="openDialogOilfields()">
+                        <mat-icon>more_horiz</mat-icon>
+                    </button>
+                    <mat-error *ngIf="form.controls.spr_oilfields_id.invalid">
+                        {{getOilfieldErrorMessage()}}
+                    </mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+    </form>
+</div>
+<div mat-dialog-actions align="end">
+    <button mat-button color="primary" [mat-dialog-close]="true" (click)="onSave()"
+        [disabled]="form.invalid || form.disabled">Сохранить</button>
+    <button mat-button color="warn" [mat-dialog-close] cdkFocusInitial>Отменить</button>
+</div>

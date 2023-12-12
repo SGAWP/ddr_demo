@@ -1,0 +1,18 @@
+<h2 mat-dialog-title>{{data.title}}</h2>
+<div mat-dialog-content>
+    <div fxLayout="row" fxLayout.xs="column">
+        <div fxFlex="100">
+            <mat-form-field class="w-full">
+                <mat-label>Выберите дату сводки</mat-label>
+                <input matInput [ngModel]="selectedDate" [matDatepicker]="dr" (ngModelChange)="onSelectDate($event)" [max]="maxDate"> 
+                <mat-datepicker-toggle matSuffix [for]="dr"></mat-datepicker-toggle>
+                <mat-datepicker #dr></mat-datepicker>
+            </mat-form-field>
+        </div>
+    </div>
+</div>
+
+<div mat-dialog-actions align="end">
+    <a mat-button color="primary" (click)="report()">Выбрать</a>
+    <button mat-button color="warn" [mat-dialog-close]>Закрыть</button>
+</div>

@@ -1,0 +1,47 @@
+.error {
+    background: #e91e63;
+    color     : #ffffff;
+}
+
+.info {
+    background: #4fc3f7;
+    color     : #303030;
+}
+
+.warn {
+    background: #f44336;
+    color     : #ffffff;
+}
+
+.success {
+    background: #3f51b5;
+    color     : #ffffff;
+}
+
+.snackbars-content {
+    display       : flex;
+    flex-direction: row;
+    align-items   : center;
+    box-sizing    : border-box;
+    padding       : 0 16px;
+    width         : 350px;
+    position      : relative;
+    height        : inherit;
+}
+
+.sb {
+    padding-right: 0;
+    padding-left : 16px;
+}
+
+.description {
+    margin     : 0;
+    padding    : 0;
+    font-size  : 16px;
+    font-weight: bold;
+}
+
+.title {
+    font-size  : 14px;
+    font-weight: bold;
+}

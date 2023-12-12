@@ -1,0 +1,40 @@
+<h2 mat-dialog-title>{{data.title}}</h2>
+<div mat-dialog-content>
+    <form [formGroup]="form">
+        <div fxLayout="row" fxLayout.xs="column">
+            <div fxFlex="100">
+                <mat-form-field class="w-full">
+                    <mat-label>Дата заявки</mat-label>
+                    <input matInput [owlDateTime]="rd" formControlName="date_request" required>
+                    <mat-error *ngIf="form.controls.date_request.invalid">
+                        {{getRequestDateErrorMessage()}}
+                    </mat-error>
+                    <button mat-icon-button matSuffix class="trigger" [owlDateTimeTrigger]="rd">
+                        <mat-icon>calendar_today</mat-icon>
+                    </button>
+                    <owl-date-time [firstDayOfWeek]="1" #rd></owl-date-time>
+                </mat-form-field>
+            </div>
+        </div>
+        <div fxLayout="row" fxLayout.xs="column">
+            <div fxFlex="100">
+                <mat-form-field class="w-full">
+                    <input matInput class="invisible" placeholder="Заявка" formControlName="spr_requests_id" required>
+                    <input matInput placeholder="Заявка" [attr.disabled]="true" formControlName="request_name"
+                        class="text-black" required>
+                    <button mat-flat-button color="primary" matSuffix (click)="openDialogRequest()">
+                        <mat-icon>more_horiz</mat-icon>
+                    </button>
+                    <mat-error *ngIf="form.controls.spr_requests_id.invalid">
+                        {{getRequestErrorMessage()}}
+                    </mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+    </form>
+</div>
+<div mat-dialog-actions align="end">
+    <button mat-button color="primary" [mat-dialog-close]="true" (click)="onSave()"
+        [disabled]="form.invalid || form.disabled">Сохранить</button>
+    <button mat-button color="warn" [mat-dialog-close] cdkFocusInitial>Отменить</button>
+</div>

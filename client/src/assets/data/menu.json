@@ -1,0 +1,139 @@
+{
+  "menu": [
+    {
+      "state": "planned_data",
+      "name": "Плановые данные",
+      "type": "sub",
+      "icon": "list_alt",
+      "role": [
+        "Администратор",
+        "Куратор",
+        "Оператор сводки"
+      ],
+      "children": [
+        {
+          "state": "teams",
+          "name": "Для буровых бригад",
+          "type": "link"
+        },
+        {
+          "state": "well",
+          "name": "Для скважин",
+          "type": "link"
+        },
+        {
+          "state": "ubr",
+          "name": "Для УБР в целом",
+          "type": "link"
+        }
+      ]
+    },
+    {
+      "state": "users",
+      "name": "Пользователи",
+      "type": "link",
+      "icon": "supervisor_account",
+      "role": [
+        "Администратор"
+      ]
+    },
+    {
+      "state": "svod",
+      "name": "Сводка",
+      "type": "link",
+      "icon": "table_chart",
+      "role": [
+        "Администратор",
+        "Куратор",
+        "Оператор сводки"
+      ]
+    },
+    {
+      "state": "directories",
+      "name": "Справочники",
+      "type": "sub",
+      "icon": "folder",
+      "role": [
+        "Администратор",
+        "Куратор"
+      ],
+      "children": [
+        {
+          "state": "teams",
+          "name": "Бригады",
+          "type": "link"
+        },
+        {
+          "state": "drillrigs",
+          "name": "Буровые установки",
+          "type": "link"
+        },
+        {
+          "state": "bits",
+          "name": "Долотья",
+          "type": "link"
+        },
+        {
+          "state": "customers",
+          "name": "Заказчики",
+          "type": "link"
+        },
+        {
+          "state": "requests",
+          "name": "Заявки",
+          "type": "link"
+        },
+        {
+          "state": "wellplatforms",
+          "name": "Кусты",
+          "type": "link"
+        },
+        {
+          "state": "masters",
+          "name": "Мастера",
+          "type": "link"
+        },
+        {
+          "state": "oilfields",
+          "name": "Месторождения",
+          "type": "link"
+        },
+        {
+          "state": "well_purposes",
+          "name": "Назначения",
+          "type": "link"
+        },
+        {
+          "state": "operations",
+          "name": "Операции",
+          "type": "link"
+        },
+        {
+          "state": "technology",
+          "name": "Технологии",
+          "type": "link"
+        },
+        {
+          "state": "type_calibrators",
+          "name": "Тип калибраторов",
+          "type": "link"
+        },
+        {
+          "state": "type_spindles",
+          "name": "Тип шпинделей",
+          "type": "link"
+        },
+        {
+          "state": "types",
+          "name": "Типы",
+          "type": "link"
+        },
+        {
+          "state": "turbodrills",
+          "name": "Турбобуры",
+          "type": "link"
+        }
+      ]
+    }
+  ]
+}

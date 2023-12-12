@@ -1,0 +1,50 @@
+<h2 mat-dialog-title>{{data.title}}</h2>
+<div mat-dialog-content>
+    <form [formGroup]="form">
+        <div fxLayout="row" fxLayout.xs="column">
+            <div fxFlex="100">
+                <mat-form-field class="w-full">
+                    <input matInput class="invisible" placeholder="Мастер" formControlName="masters_id" required>
+                    <input matInput placeholder="Мастер" [attr.disabled]="true" formControlName="master_name"
+                        class="text-black" required>
+                    <button mat-flat-button color="primary" matSuffix (click)="openDialogMasters()">
+                        <mat-icon>more_horiz</mat-icon>
+                    </button>
+                </mat-form-field>
+            </div>
+        </div>
+        <div fxLayout="row" fxLayout.xs="column">
+            <div fxFlex="100">
+                <mat-form-field class="w-full">
+                    <mat-label>Помощник мастера</mat-label>
+                    <input matInput [attr.disabled]="true" formControlName="assistant_master" class="text-black">
+                </mat-form-field>
+            </div>
+        </div>
+        <div fxLayout="row" fxLayout.xs="column">
+            <div fxFlex="100">
+                <mat-form-field class="w-full">
+                    <mat-label>Помощник мастера</mat-label>
+                    <input matInput [attr.disabled]="true" formControlName="second_assistant_master" class="text-black">
+                </mat-form-field>
+            </div>
+        </div>
+        <div fxLayout="row" fxLayout.xs="column">
+            <div fxFlex="100">
+                <mat-form-field class="w-full">
+                    <input matInput class="invisible" placeholder="Бригада" formControlName="teams_id" required>
+                    <input matInput placeholder="Бригада" [attr.disabled]="true" formControlName="team_name"
+                        class="text-black" required>
+                    <button mat-flat-button color="primary" matSuffix (click)="openDialogTeams()">
+                        <mat-icon>more_horiz</mat-icon>
+                    </button>
+                </mat-form-field>
+            </div>
+        </div>
+    </form>
+</div>
+<div mat-dialog-actions align="end">
+    <button mat-button color="primary" [mat-dialog-close]="true" (click)="onSave()"
+        [disabled]="form.invalid || form.disabled">Сохранить</button>
+    <button mat-button color="warn" [mat-dialog-close] cdkFocusInitial>Отменить</button>
+</div>

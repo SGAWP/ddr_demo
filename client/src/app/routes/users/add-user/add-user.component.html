@@ -1,0 +1,72 @@
+<h2 mat-dialog-title>{{data.title}}</h2>
+<div mat-dialog-content>
+    <form [formGroup]="form">
+        <div fxLayout="row" fxLayout.xs="column">
+            <div class="mr10" fxFlex="50">
+                <mat-form-field class="w-full">
+                    <input matInput placeholder="Имя пользователя" formControlName="username" maxlength="40" required>
+                    <mat-error *ngIf="form.controls.username.invalid">{{getLoginErrorMessage()}}</mat-error>
+                    <button mat-icon-button *ngIf="form.controls.username.value" matSuffix
+                        (click)="form.get('username').setValue('')" matTooltip="Очистить">
+                        <mat-icon>close</mat-icon>
+                    </button>
+                </mat-form-field>
+            </div>
+            <div fxFlex="50">
+                <mat-form-field class="w-full">
+                    <input matInput placeholder="ФИО" formControlName="full_name" maxlength="200" required>
+                    <mat-error *ngIf="form.controls.full_name.invalid">{{getFullNameErrorMessage()}}</mat-error>
+                    <button mat-icon-button *ngIf="form.controls.full_name.value" matSuffix
+                        (click)="form.get('full_name').setValue('')" matTooltip="Очистить">
+                        <mat-icon>close</mat-icon>
+                    </button>
+                </mat-form-field>
+            </div>
+        </div>
+        <div fxLayout="row" fxLayout.xs="column">
+            <div fxFlex="100">
+                <mat-form-field class="w-full">
+                    <mat-label>Роль пользователя</mat-label>
+                    <mat-select formControlName="roles_id" required>
+                        <mat-option *ngFor="let role of roles" [value]="role.role_id">
+                            {{role.role_name}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+        </div>
+        <div fxLayout="row" fxLayout.xs="column">
+            <div fxFlex="100">
+                <mat-form-field class="w-full" appearance="outline">
+                    <mat-label>Пароль</mat-label>
+                    <input matInput type="password" placeholder="Пароль" formControlName="password" required>
+                    <mat-error *ngIf="form.controls.password.invalid">{{getPasswordErrorMessage()}}</mat-error>
+                    <button mat-icon-button *ngIf="form.controls.password.value" matSuffix
+                        (click)="form.get('password').setValue('')" matTooltip="Очистить">
+                        <mat-icon>close</mat-icon>
+                    </button>
+                </mat-form-field>
+            </div>
+        </div>
+        <div fxLayout="row" fxLayout.xs="column">
+            <div fxFlex="100">
+                <mat-form-field class="w-full" appearance="outline">
+                    <mat-label>Подтвердить</mat-label>
+                    <input matInput type="password" placeholder="Подтвердить" formControlName="confirmPassword"
+                        [errorStateMatcher]="matcher" required>
+                    <mat-error *ngIf="form.controls.confirmPassword.invalid || form">
+                        {{getPasswordConfirmErrorMessage()}}</mat-error>
+                    <button mat-icon-button *ngIf="form.controls.confirmPassword.value" matSuffix
+                        (click)="form.get('confirmPassword').setValue('')" matTooltip="Очистить">
+                        <mat-icon>close</mat-icon>
+                    </button>
+                </mat-form-field>
+            </div>
+        </div>
+    </form>
+</div>
+<div mat-dialog-actions align="end">
+    <button mat-button color="primary" [mat-dialog-close]="true" (click)="onSave()"
+        [disabled]="form.invalid || form.disabled">Сохранить</button>
+    <button mat-button color="warn" [mat-dialog-close] cdkFocusInitial>Отменить</button>
+</div>

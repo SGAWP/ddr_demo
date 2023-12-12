@@ -1,0 +1,81 @@
+<div fxLayout="column" fxLayoutGap="20px">
+  <div fxFlex class="table-component-holder mat-elevation-z4">
+    <mat-toolbar class="table-header">
+      <h1>{{title}}</h1>
+      <span class="spacer"></span>
+      <button mat-icon-button matTooltip="Обновить" (click)="load();">
+        <mat-icon>update</mat-icon>
+      </button>
+      <button mat-mini-fab color="accent" (click)="addDirectory()" matTooltip="Добавить">
+        <mat-icon>add</mat-icon>
+      </button>
+    </mat-toolbar>
+    <div class="table-container">
+      <div class="loading-container">
+        <div class="loading-shade" *ngIf="loading">
+          <mat-spinner *ngIf="loading"></mat-spinner>
+        </div>
+        <mat-tree [dataSource]="dataSource" [treeControl]="treeControl" class="example-tree">
+          <mat-tree-node *matTreeNodeDef="let node" matTreeNodeToggle>
+            <li class="mat-tree-node">
+              <button mat-icon-button disabled>
+                <mat-icon>
+                  note
+                </mat-icon>
+              </button>
+              {{node.operation_full_name}}
+            </li>
+            <button mat-icon-button [matMenuTriggerFor]="menu">
+              <mat-icon>more_vert</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu">
+              <button mat-menu-item (click)="add(node)">
+                <mat-icon>add</mat-icon>
+                <span>Добавить</span>
+              </button>
+              <button mat-menu-item (click)="edit(node)">
+                <mat-icon>edit</mat-icon>
+                <span>Редактировать</span>
+              </button>
+              <button mat-menu-item (click)="delete(node)">
+                <mat-icon>delete_outline</mat-icon>
+                <span>Удалить</span>
+              </button>
+            </mat-menu>
+          </mat-tree-node>
+          <mat-nested-tree-node *matTreeNodeDef="let node; when: hasChild">
+            <li>
+              <div class="mat-tree-node">
+                <button mat-icon-button matTreeNodeToggle>
+                  <mat-icon class="mat-icon-rtl-mirror" color="accent">
+                    {{treeControl.isExpanded(node) ? 'folder_open' : 'folder'}}
+                  </mat-icon>
+                </button>
+                <span class="example-tree-node-name">{{node.operation_full_name}}</span>
+                <button mat-icon-button [matMenuTriggerFor]="menu">
+                  <mat-icon>more_vert</mat-icon>
+                </button>
+                <mat-menu #menu="matMenu">
+                  <button mat-menu-item (click)="add(node)">
+                    <mat-icon>add</mat-icon>
+                    <span>Добавить</span>
+                  </button>
+                  <button mat-menu-item (click)="edit(node)">
+                    <mat-icon>edit</mat-icon>
+                    <span>Редактировать</span>
+                  </button>
+                  <button mat-menu-item (click)="delete(node)">
+                    <mat-icon>delete_outline</mat-icon>
+                    <span>Удалить</span>
+                  </button>
+                </mat-menu>
+              </div>
+              <ul [class.example-tree-invisible]="!treeControl.isExpanded(node)">
+                <ng-container matTreeNodeOutlet></ng-container>
+              </ul>
+            </li>
+          </mat-nested-tree-node>
+        </mat-tree>
+      </div>
+    </div>
+  </div>

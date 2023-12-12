@@ -1,0 +1,25 @@
+<h2 mat-dialog-title>{{data.title}}</h2>
+<div mat-dialog-content>
+    <form [formGroup]="form">
+        <div fxLayout="row" fxLayout.xs="column">
+            <div fxFlex="100">
+                <mat-form-field class="w-full">
+                    <mat-label>Тип долота</mat-label>
+                    <input matInput formControlName="type" maxlength="30" required>
+                    <mat-error *ngIf="form.controls.type.invalid">
+                        {{getBitErrorMessage()}}
+                    </mat-error>
+                    <button mat-icon-button *ngIf="form.controls.type.value" matSuffix
+                        (click)="form.get('type').setValue('')" matTooltip="Очистить">
+                        <mat-icon>close</mat-icon>
+                    </button>
+                </mat-form-field>
+            </div>
+        </div>
+    </form>
+</div>
+<div mat-dialog-actions align="end">
+    <button mat-button color="primary" [mat-dialog-close]="true" (click)="onSave()"
+        [disabled]="form.invalid || form.disabled">Сохранить</button>
+    <button mat-button color="warn" [mat-dialog-close] cdkFocusInitial>Отменить</button>
+</div>

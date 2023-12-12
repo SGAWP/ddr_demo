@@ -1,0 +1,54 @@
+<h2 mat-dialog-title>{{data.title}}</h2>
+<div mat-dialog-content>
+    <form [formGroup]="form">
+        <div fxLayout="row" fxLayout.xs="column">
+            <div fxFlex="100">
+                <mat-form-field class="w-full">
+                    <mat-label>Полное наименование операции</mat-label>
+                    <input matInput formControlName="operation_full_name" required>
+                    <mat-error *ngIf="form.controls.operation_full_name.invalid">
+                        {{getOperationErrorMessage()}}
+                    </mat-error>
+                    <button mat-icon-button *ngIf="form.controls.operation_full_name.value" matSuffix
+                        (click)="form.get('operation_full_name').setValue('')" matTooltip="Очистить">
+                        <mat-icon>close</mat-icon>
+                    </button>
+                </mat-form-field>
+            </div>
+        </div>
+        <div fxLayout="row" fxLayout.xs="column">
+            <div fxFlex="100">
+                <mat-form-field class="w-full">
+                    <mat-label>Сокращенное наименование операции</mat-label>
+                    <input matInput formControlName="operation_short_name" >
+                    <button mat-icon-button *ngIf="form.controls.operation_short_name.value" matSuffix
+                        (click)="form.get('operation_short_name').setValue('')" matTooltip="Очистить">
+                        <mat-icon>close</mat-icon>
+                    </button>
+                </mat-form-field>
+            </div>
+        </div>
+        <div fxLayout="row" fxLayout.xs="column">
+            <div fxFlex="100">
+                <mat-form-field class="w-full">
+                    <mat-label>Группа</mat-label>
+                    <input matInput formControlName="group_name" [matAutocomplete]="auto" maxlength="200">
+                    <mat-autocomplete #auto="matAutocomplete">
+                        <mat-option *ngFor="let option of uniqueOperations" [value]="option.group_name">
+                            {{option.group_name}}
+                        </mat-option>
+                    </mat-autocomplete>
+                    <button mat-icon-button *ngIf="form.controls.group_name.value" matSuffix
+                        (click)="form.get('group_name').setValue('')" matTooltip="Очистить">
+                        <mat-icon>close</mat-icon>
+                    </button>
+                </mat-form-field>
+            </div>
+        </div>
+    </form>
+</div>
+<div mat-dialog-actions align="end">
+    <button mat-button color="primary" [mat-dialog-close]="true" (click)="onSave()"
+        [disabled]="form.invalid || form.disabled">Сохранить</button>
+    <button mat-button color="warn" [mat-dialog-close] cdkFocusInitial>Отменить</button>
+</div>

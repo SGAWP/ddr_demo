@@ -1,0 +1,12 @@
+<div class="ddr-user-panel p-y-16 b-b-1" fxLayout="column" fxLayoutAlign="center center" *ngIf="user" fxHide.lt-md>
+    <h4 class="ddr-user-panel-name m-t-0 m-b-8 f-w-400">{{user.full_name}}</h4>
+    <h5 class="ddr-user-panel-role m-t-0 m-b-8 f-w-400 accent">{{user.role_name}}</h5>
+    <div class="ddr-user-panel-icons text-nowrap">
+        <a (click)="openDialog()" mat-icon-button matTooltip="Сброс пароля">
+            <mat-icon class="icon-18" >refresh</mat-icon>
+        </a>
+        <a (click)="onLogout($event)" mat-icon-button matTooltip="Выход">
+            <mat-icon class="icon-18">exit_to_app</mat-icon>
+        </a>
+    </div>
+</div>

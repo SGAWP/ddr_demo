@@ -1,0 +1,158 @@
+<div fxLayout="column" fxLayoutGap="20px">
+    <div fxFlex class="table-component-holder mat-elevation-z4">
+        <mat-toolbar class="table-header">
+            <h1 class="mat-headline center-align">{{title}}</h1>
+            <span class="spacer"></span>
+            <button mat-icon-button matTooltip="Обновить" (click)="load();">
+                <mat-icon>update</mat-icon>
+            </button>
+            <button mat-mini-fab color="accent" (click)="add()" matTooltip="Добавить">
+                <mat-icon>add</mat-icon>
+            </button>
+        </mat-toolbar>
+        <div class="table-container">
+            <div fxLayout="row" fxLayout.xs="column">
+                <div fxFlex="100">
+                    <mat-form-field class="w-full">
+                        <input matInput [(ngModel)]="search" placeholder="Фильтр" (keyup.enter)="applyFilter()">
+                        <button mat-icon-button matSuffix color="primary" (click)="applyFilter()" matTooltip="Фильтр">
+                            <mat-icon>search</mat-icon>
+                        </button>
+                        <button mat-icon-button matSuffix color="warn" (click)="clear()" matTooltip="Очистить">
+                            <mat-icon>clear</mat-icon>
+                        </button>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="loading-container">
+                <div class="loading-shade" *ngIf="loading">
+                    <mat-spinner *ngIf="loading"></mat-spinner>
+                </div>
+
+                <table mat-table class="tb" matTableResponsive [dataSource]="dataSource">
+                    <ng-container matColumnDef="slotting_n">
+                        <th mat-header-cell *matHeaderCellDef [ngStyle]="{'display': 'none'}"> № долбления </th>
+                        <td mat-cell *matCellDef="let row"> {{row.slotting_n}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="No">
+                        <th mat-header-cell *matHeaderCellDef [attr.rowspan]="2">№ долбления</th>
+                    </ng-container>
+
+                    <ng-container matColumnDef="duration">
+                        <th mat-header-cell *matHeaderCellDef [ngStyle]="{'display': 'none'}"> Время </th>
+                        <td mat-cell *matCellDef="let row"> {{"1970-01-01T"+row.duration | date:'HH:mm'}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="Time">
+                        <th mat-header-cell *matHeaderCellDef [attr.rowspan]="2">Время</th>
+                    </ng-container>
+
+                    <ng-container matColumnDef="start_slotting">
+                        <th mat-header-cell *matHeaderCellDef> Начало </th>
+                        <td mat-cell *matCellDef="let row"> {{row.start_slotting}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="slotting_end">
+                        <th mat-header-cell *matHeaderCellDef> Конец </th>
+                        <td mat-cell *matCellDef="let row"> {{row.slotting_end}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="Interval">
+                        <th mat-header-cell *matHeaderCellDef [attr.colspan]="2"> Интервал </th>
+                    </ng-container>
+
+                    <ng-container matColumnDef="type">
+                        <th mat-header-cell *matHeaderCellDef> Название </th>
+                        <td mat-cell *matCellDef="let row"> {{row.type | slice:5:8}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="bit_number">
+                        <th mat-header-cell *matHeaderCellDef> Номер </th>
+                        <td mat-cell *matCellDef="let row"> {{row.bit_number}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="Bit">
+                        <th mat-header-cell *matHeaderCellDef [attr.colspan]="2"> Долото </th>
+                    </ng-container>
+
+                    <ng-container matColumnDef="turbodrill_name">
+                        <th mat-header-cell *matHeaderCellDef> Название </th>
+                        <td mat-cell *matCellDef="let row"> {{row.turbodrill_name | slice:0:4}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="turbodrill_n">
+                        <th mat-header-cell *matHeaderCellDef> Номер </th>
+                        <td mat-cell *matCellDef="let row"> {{row.turbodrill_n}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="spindle">
+                        <th mat-header-cell *matHeaderCellDef> Шпиндель </th>
+                        <td mat-cell *matCellDef="let row"> {{row.spindle}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="Turbodrill">
+                        <th mat-header-cell *matHeaderCellDef [attr.colspan]="3"> Турбобуры </th>
+                    </ng-container>
+
+                    <ng-container matColumnDef="type_spindle">
+                        <th mat-header-cell *matHeaderCellDef> Шпиндель </th>
+                        <td mat-cell *matCellDef="let row"> {{row.type_spindle}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="type_calibrator">
+                        <th mat-header-cell *matHeaderCellDef> Калибратор </th>
+                        <td mat-cell *matCellDef="let row"> {{row.type_calibrator}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="Type">
+                        <th mat-header-cell *matHeaderCellDef [attr.colspan]="2"> Тип </th>
+                    </ng-container>
+
+                    <ng-container matColumnDef="d1">
+                        <th mat-header-cell *matHeaderCellDef> Д1 </th>
+                        <td mat-cell *matCellDef="let row"> {{row.d1}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="d2">
+                        <th mat-header-cell *matHeaderCellDef> Д2 </th>
+                        <td mat-cell *matCellDef="let row"> {{row.d2}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="pump_pressure">
+                        <th mat-header-cell *matHeaderCellDef> Давление </th>
+                        <td mat-cell *matCellDef="let row"> {{row.pump_pressure}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="Pumps">
+                        <th mat-header-cell *matHeaderCellDef [attr.colspan]="3"> Насосы </th>
+                    </ng-container>
+
+                    <ng-container matColumnDef="button">
+                        <th mat-header-cell *matHeaderCellDef [ngStyle]="{'display': 'none'}"></th>
+                        <td mat-cell *matCellDef="let row">
+                            <button mat-icon-button color="primary" matTooltip="Редактировать" (click)="edit(row)">
+                                <mat-icon>edit</mat-icon>
+                            </button>
+                            <button mat-icon-button color="warn" matTooltip="Удалить" (click)="delete(row)">
+                                <mat-icon>delete_outline</mat-icon>
+                            </button>
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="Act">
+                        <th mat-header-cell *matHeaderCellDef [attr.rowspan]="2"></th>
+                    </ng-container>
+
+                    <tr mat-header-row
+                        *matHeaderRowDef="['No', 'Time', 'Interval', 'Bit', 'Turbodrill', 'Type', 'Pumps', 'Act']"></tr>
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns.concat(['button'])"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns.concat(['button']);"></tr>
+                </table>
+                <mat-paginator [pageSizeOptions]="pageSizeOptions" [length]="totalItems" [pageSize]="pageSize"
+                    (page)="onPaginateChange($event)" showFirstLastButtons [disabled]="!isActive">
+                </mat-paginator>
+            </div>
+        </div>
+    </div>
+</div>

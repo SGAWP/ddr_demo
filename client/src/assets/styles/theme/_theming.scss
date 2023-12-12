@@ -1,0 +1,13 @@
+@import 'variables';
+@import 'mixins';
+@import 'mc';
+@import 'snackbar';
+@import 'table';
+@import 'core/core';
+@import 'widgets/widgets';
+@import 'helpers/helpers';
+
+@mixin ddr-theme($theme) {
+  @include ddr-sidenav-theme($theme);
+  @include ddr-topnav-theme($theme);
+}

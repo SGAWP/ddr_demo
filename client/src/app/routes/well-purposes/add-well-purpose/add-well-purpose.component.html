@@ -1,0 +1,28 @@
+<h2 mat-dialog-title>{{data.title}}</h2>
+<div mat-dialog-content>
+    <form [formGroup]="form">
+        <div fxLayout="row" fxLayout.xs="column">
+            <div class="mr10" fxFlex="75">
+                <mat-form-field class="w-full">
+                    <mat-label>Назначение</mat-label>
+                    <input matInput formControlName="full_name" maxlength="100" required>
+                    <mat-error *ngIf="form.controls.full_name.invalid">{{getFullNameErrorMessage()}}</mat-error>
+                    <button mat-icon-button *ngIf="form.controls.full_name.value" matSuffix
+                        (click)="form.get('full_name').setValue('')" matTooltip="Очистить">
+                        <mat-icon>close</mat-icon>
+                    </button>
+                </mat-form-field>
+            </div>
+            <div fxFlex="25">
+                <mat-checkbox formControlName="is_active" color="primary">
+                    Активность
+                </mat-checkbox>
+            </div>
+        </div>
+    </form>
+</div>
+<div mat-dialog-actions align="end">
+    <button mat-button color="primary" [mat-dialog-close]="true" (click)="onSave()"
+        [disabled]="form.invalid || form.disabled">Сохранить</button>
+    <button mat-button color="warn" [mat-dialog-close] cdkFocusInitial>Отменить</button>
+</div>

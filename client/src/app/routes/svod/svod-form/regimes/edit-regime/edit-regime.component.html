@@ -1,0 +1,195 @@
+<h2 mat-dialog-title>{{data.title}}</h2>
+<div mat-dialog-content>
+    <form [formGroup]="form">
+        <div fxLayout="row" fxLayout.xs="column">
+            <div class="mr10" fxFlex="50">
+                <mat-form-field class="w-full">
+                    <mat-label>Номер долбления</mat-label>
+                    <input matInput type="number" formControlName="slotting_n" min="0" max="99"
+                        onKeyDown="if(this.value.length==2) return false;">
+                    <button mat-icon-button *ngIf="form.controls.slotting_n.value" matSuffix
+                        (click)="form.get('slotting_n').setValue('')" matTooltip="Очистить">
+                        <mat-icon>close</mat-icon>
+                    </button>
+                </mat-form-field>
+            </div>
+            <div fxFlex="50">
+                <mat-form-field class="w-full">
+                    <mat-label>Время</mat-label>
+                    <input matInput [owlDateTime]="dur" formControlName="duration" required>
+                    <mat-error *ngIf="form.controls.duration.invalid">
+                        {{getDurationErrorMessage()}}
+                    </mat-error>
+                    <button mat-icon-button matSuffix class="trigger" [owlDateTimeTrigger]="dur">
+                        <mat-icon>schedule</mat-icon>
+                    </button>
+                    <owl-date-time [pickerType]="'timer'" #dur></owl-date-time>
+                </mat-form-field>
+            </div>
+        </div>
+        <mat-card>
+            <h3>Интервал</h3>
+            <div fxLayout="row" fxLayout.xs="column">
+                <div class="mr10" fxFlex="50">
+                    <mat-form-field class="w-full">
+                        <mat-label>Начало долбления</mat-label>
+                        <input matInput type="number" formControlName="start_slotting" min="0" max="9999"
+                            onKeyDown="if(this.value.length==4) return false;">
+                        <button mat-icon-button *ngIf="form.controls.start_slotting.value" matSuffix
+                            (click)="form.get('start_slotting').setValue('')" matTooltip="Очистить">
+                            <mat-icon>close</mat-icon>
+                        </button>
+                    </mat-form-field>
+                </div>
+                <div fxFlex="50">
+                    <mat-form-field class="w-full">
+                        <mat-label>Конец долбления</mat-label>
+                        <input matInput type="number" formControlName="slotting_end" min="0" max="9999"
+                            onKeyDown="if(this.value.length==4) return false;">
+                        <button mat-icon-button *ngIf="form.controls.slotting_end.value" matSuffix
+                            (click)="form.get('slotting_end').setValue('')" matTooltip="Очистить">
+                            <mat-icon>close</mat-icon>
+                        </button>
+                    </mat-form-field>
+                </div>
+            </div>
+            <h3>Долото</h3>
+            <div fxLayout="row" fxLayout.xs="column">
+                <div class="mr10" fxFlex="50">
+                    <mat-form-field class="w-full">
+                        <input matInput class="invisible" placeholder="Название" formControlName="spr_bits_id" required>
+                        <input matInput placeholder="Название" [attr.disabled]="true" formControlName="type"
+                            class="text-black" required>
+                        <button mat-flat-button color="primary" matSuffix (click)="openDialogBits()">
+                            <mat-icon>more_horiz</mat-icon>
+                        </button>
+                        <mat-error *ngIf="form.controls.spr_bits_id.invalid">
+                            {{getBitErrorMessage()}}
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div fxFlex="50">
+                    <mat-form-field class="w-full">
+                        <mat-label>Номер</mat-label>
+                        <input matInput type="number" formControlName="bit_number" min="0" max="9999"
+                            onKeyDown="if(this.value.length==4) return false;">
+                        <button mat-icon-button *ngIf="form.controls.bit_number.value" matSuffix
+                            (click)="form.get('bit_number').setValue('')" matTooltip="Очистить">
+                            <mat-icon>close</mat-icon>
+                        </button>
+                    </mat-form-field>
+                </div>
+            </div>
+            <h3>Турбобур</h3>
+            <div fxLayout="row wrap" fxLayoutAlign="space-between stretch">
+                <div fxFlex.gt-md="0 1 32" fxFlex.gt-xs="0 1 calc(50% - 10px)" fxFlex="100">
+                    <mat-form-field class="w-full">
+                        <input matInput class="invisible" placeholder="Название" formControlName="spr_turbodrills_id"
+                            required>
+                        <input matInput placeholder="Название" [attr.disabled]="true" formControlName="turbodrill_name"
+                            class="text-black" required>
+                        <button mat-flat-button color="primary" matSuffix (click)="openDialogTurbodrills()">
+                            <mat-icon>more_horiz</mat-icon>
+                        </button>
+                        <mat-error *ngIf="form.controls.spr_turbodrills_id.invalid">
+                            {{getTurbodrillErrorMessage()}}
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div fxFlex.gt-md="0 1 32" fxFlex.gt-xs="0 1 calc(50% - 10px)" fxFlex="100">
+                    <mat-form-field class="w-full">
+                        <mat-label>Номер</mat-label>
+                        <input matInput type="number" formControlName="turbodrill_n" min="0" max="9999"
+                            onKeyDown="if(this.value.length==4) return false;">
+                        <button mat-icon-button *ngIf="form.controls.turbodrill_n.value" matSuffix
+                            (click)="form.get('turbodrill_n').setValue('')" matTooltip="Очистить">
+                            <mat-icon>close</mat-icon>
+                        </button>
+                    </mat-form-field>
+                </div>
+                <div fxFlex.gt-md="0 1 32" fxFlex="100">
+                    <mat-form-field class="w-full">
+                        <mat-label>Шпиндель</mat-label>
+                        <input matInput type="number" formControlName="spindle" min="0" max="9999"
+                            onKeyDown="if(this.value.length==4) return false;">
+                        <button mat-icon-button *ngIf="form.controls.spindle.value" matSuffix
+                            (click)="form.get('spindle').setValue('')" matTooltip="Очистить">
+                            <mat-icon>close</mat-icon>
+                        </button>
+                    </mat-form-field>
+                </div>
+            </div>
+            <h3>Тип</h3>
+            <div fxLayout="row" fxLayout.xs="column">
+                <div class="mr10" fxFlex="50">
+                    <mat-form-field class="w-full">
+                        <mat-label>Шпиндель</mat-label>
+                        <mat-select formControlName="type_spindles_id" required>
+                            <mat-option *ngFor="let typeSpindle of typesSpindle" [value]="typeSpindle.type_spindle_id">
+                                {{typeSpindle.type_spindle}}
+                            </mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="form.controls.type_spindles_id.invalid">
+                            {{getTypeSpindleErrorMessage()}}
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div fxFlex="50">
+                    <mat-form-field class="w-full">
+                        <mat-label>Калибратор</mat-label>
+                        <mat-select formControlName="type_calibrators_id" required>
+                            <mat-option *ngFor="let typeCalibrator of typesCalibrator"
+                                [value]="typeCalibrator.type_calibrator_id">
+                                {{typeCalibrator.type_calibrator}}
+                            </mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="form.controls.type_calibrators_id.invalid">
+                            {{getTypeCalibratorErrorMessage()}}
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+            <h3>Насосы</h3>
+            <div fxLayout="row wrap" fxLayoutAlign="space-between stretch">
+                <div fxFlex.gt-md="0 1 32" fxFlex.gt-xs="0 1 calc(50% - 10px)" fxFlex="100">
+                    <mat-form-field class="w-full">
+                        <mat-label>Д1</mat-label>
+                        <input matInput type="number" formControlName="d1" min="0" max="999"
+                            onKeyDown="if(this.value.length==3) return false;">
+                        <button mat-icon-button *ngIf="form.controls.d1.value" matSuffix
+                            (click)="form.get('d1').setValue('')" matTooltip="Очистить">
+                            <mat-icon>close</mat-icon>
+                        </button>
+                    </mat-form-field>
+                </div>
+                <div fxFlex.gt-md="0 1 32" fxFlex.gt-xs="0 1 calc(50% - 10px)" fxFlex="100">
+                    <mat-form-field class="w-full">
+                        <mat-label>Д2</mat-label>
+                        <input matInput type="number" formControlName="d2" min="0" max="999"
+                            onKeyDown="if(this.value.length==3) return false;">
+                        <button mat-icon-button *ngIf="form.controls.d2.value" matSuffix
+                            (click)="form.get('d2').setValue('')" matTooltip="Очистить">
+                            <mat-icon>close</mat-icon>
+                        </button>
+                    </mat-form-field>
+                </div>
+                <div fxFlex.gt-md="0 1 32" fxFlex="100">
+                    <mat-form-field class="w-full">
+                        <mat-label>Давление</mat-label>
+                        <input matInput type="number" formControlName="pump_pressure" min="0" max="999"
+                            onKeyDown="if(this.value.length==3) return false;">
+                        <button mat-icon-button *ngIf="form.controls.pump_pressure.value" matSuffix
+                            (click)="form.get('pump_pressure').setValue('')" matTooltip="Очистить">
+                            <mat-icon>close</mat-icon>
+                        </button>
+                    </mat-form-field>
+                </div>
+            </div>
+        </mat-card>
+    </form>
+</div>
+<div mat-dialog-actions align="end">
+    <button mat-button color="primary" [mat-dialog-close]="true" (click)="onSave()"
+        [disabled]="form.invalid || form.disabled">Сохранить</button>
+    <button mat-button color="warn" [mat-dialog-close] cdkFocusInitial>Отменить</button>
+</div>

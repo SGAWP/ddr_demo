@@ -1,0 +1,56 @@
+.ddr-header {
+  position: relative;
+  z-index : 201;
+  display : block;
+
+  .ddr-toolbar {
+    padding: 0;
+  }
+
+  .ddr-user-avatar {
+    margin-right: 8px;
+
+    [dir='rtl'] & {
+      margin-left : 8px;
+      margin-right: auto;
+    }
+  }
+
+  // Layout control
+  .ddr-header-fixed & {
+    position: sticky;
+    top     : 0;
+  }
+}
+
+.ddr-toolbar {
+  @include mat-elevation(2);
+
+  .badge {
+    position     : absolute;
+    top          : 0;
+    left         : 50%;
+    font-size    : 12px;
+    border-radius: 10px;
+  }
+}
+
+// Colorful
+.ddr-header-white {
+
+  .ddr-toolbar,
+  .ddr-topmenu {
+    background-color: white;
+  }
+}
+
+.ddr-hamburger.mat-button {
+  height : 100%;
+  padding: 0;
+
+  @include bp-lt(small) {
+    & {
+      min-width: 15%;
+    }
+  }
+}

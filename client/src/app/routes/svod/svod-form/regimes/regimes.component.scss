@@ -1,0 +1,36 @@
+::ng-deep .mat-sort-header-container {
+    justify-content: center;
+}
+
+td.mat-cell:last-of-type,
+td.mat-footer-cell:last-of-type,
+th.mat-header-cell:last-of-type {
+    padding-right: 0px;
+}
+
+tr.mat-footer-row,
+tr.mat-row {
+    height: 100%;
+}
+
+td.mat-cell,
+td.mat-footer-cell,
+th.mat-header-cell {
+    padding: .625em;
+}
+
+@media screen and (min-width: 1270px) {
+    th.mat-header-cell {
+        text-align : center;
+        border     : 1px solid #ffffff;
+        padding    : 0 !important;
+        white-space: normal !important;
+    }
+
+    td.mat-cell {
+        text-align : center;
+        border     : 1px solid #cccccc;
+        padding    : 0 !important;
+        white-space: normal !important;
+    }
+}

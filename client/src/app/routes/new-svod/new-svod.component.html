@@ -1,0 +1,205 @@
+<div fxLayout="column" fxLayoutGap="20px">
+    <div fxFlex class="table-component-holder mat-elevation-z4">
+        <div [formGroup]="form">
+            <mat-toolbar class="table-header">
+                <div class="mr display">
+                    <h1>{{title}} за {{date | date: 'dd.MM.yyyy'}} г.</h1>
+                </div>
+                <span class="spacer"></span>
+                <button mat-icon-button matTooltip="Назад" [routerLink]="['/svod']">
+                    <mat-icon>navigate_before</mat-icon>
+                </button>
+            </mat-toolbar>
+            <div class="table-container">
+                <div fxLayout="row" fxLayout.xs="column">
+                    <div fxFlex="100">
+                        <mat-checkbox formControlName="msgrp" color="primary">
+                            МСГРП
+                        </mat-checkbox>
+                    </div>
+                </div>
+                <div fxLayout="row wrap" fxLayoutAlign="space-between stretch">
+                    <div fxFlex.gt-md="0 1 32" fxFlex.gt-xs="0 1 calc(50% - 10px)" fxFlex="100">
+                        <mat-form-field class="w-full">
+                            <input matInput class="invisible" placeholder="Куст"
+                                formControlName="spr_wellplatforms_id" required>
+                            <input matInput placeholder="Куст" [attr.disabled]="true"
+                                formControlName="wellplatform_name" class="text-black" required>
+                            <button mat-flat-button color="primary" matSuffix
+                                (click)="openDialogWellplatforms()">
+                                <mat-icon>more_horiz</mat-icon>
+                            </button>
+                        </mat-form-field>
+                    </div>
+                    <div fxFlex.gt-md="0 1 32" fxFlex.gt-xs="0 1 calc(50% - 10px)" fxFlex="100">
+                        <mat-form-field class="w-full" appearance="fill">
+                            <mat-label>Месторождение</mat-label>
+                            <input matInput [attr.disabled]="true" formControlName="oilfield_short_name"
+                                class="text-black" required>
+                        </mat-form-field>
+                    </div>
+                    <div fxFlex.gt-md="0 1 32" fxFlex="100">
+                        <mat-form-field class="w-full" appearance="fill">
+                            <mat-label>Скважина</mat-label>
+                            <input matInput formControlName="well" required>
+                            <mat-error *ngIf="form.controls.well.invalid">
+                                {{getWellErrorMessage()}}
+                            </mat-error>
+                            <button mat-icon-button *ngIf="form.controls.well.value" matSuffix
+                                (click)="form.get('well').setValue('')" matTooltip="Очистить">
+                                <mat-icon>close</mat-icon>
+                            </button>
+                        </mat-form-field>
+                    </div>
+                    <div fxFlex.gt-md="0 1 24" fxFlex.gt-xs="0 1 calc(50% - 10px)" fxFlex="100">
+                        <mat-form-field class="w-full">
+                            <input matInput class="invisible" placeholder="Бригада"
+                                formControlName="masters_teams_id" required>
+                            <input matInput placeholder="Бригада" [attr.disabled]="true"
+                                formControlName="team_name" class="text-black" required>
+                            <button mat-flat-button color="primary" matSuffix (click)="openDialogMT()">
+                                <mat-icon>more_horiz</mat-icon>
+                            </button>
+                        </mat-form-field>
+                    </div>
+                    <div fxFlex.gt-md="0 1 24" fxFlex.gt-xs="0 1 calc(50% - 10px)" fxFlex="100">
+                        <mat-form-field class="w-full" appearance="fill">
+                            <mat-label>Мастер</mat-label>
+                            <input matInput [attr.disabled]="true" formControlName="master_name"
+                                class="text-black" required>
+                        </mat-form-field>
+                    </div>
+                    <div fxFlex.gt-md="0 1 24" fxFlex.gt-xs="0 1 calc(50% - 10px)" fxFlex="100">
+                        <mat-form-field class="w-full" appearance="fill">
+                            <mat-label>Помощник мастера</mat-label>
+                            <input matInput [attr.disabled]="true" formControlName="assistant_master"
+                                class="text-black">
+                        </mat-form-field>
+                    </div>
+                    <div fxFlex.gt-md="0 1 24" fxFlex.gt-xs="0 1 calc(50% - 10px)" fxFlex="100">
+                        <mat-form-field class="w-full" appearance="fill">
+                            <mat-label>Помощник мастера</mat-label>
+                            <input matInput [attr.disabled]="true" formControlName="second_assistant_master"
+                                class="text-black">
+                        </mat-form-field>
+                    </div>
+                    <div fxFlex.gt-md="0 1 24" fxFlex.gt-xs="0 1 calc(50% - 10px)" fxFlex="100">
+                        <mat-form-field class="w-full" appearance="fill">
+                            <mat-label>V поглощения</mat-label>
+                            <input matInput type="number" formControlName="vAbsorbing" min="0" max="99"
+                                onKeyDown="if(this.value.length==2) return false;" required>
+                            <mat-error *ngIf="form.controls.vAbsorbing.invalid">
+                                {{getVAbsorbingErrorMessage()}}
+                            </mat-error>
+                            <button mat-icon-button *ngIf="form.controls.vAbsorbing.value" matSuffix
+                                (click)="form.get('vAbsorbing').setValue('')" matTooltip="Очистить">
+                                <mat-icon>close</mat-icon>
+                            </button>
+                        </mat-form-field>
+                    </div>
+                    <div fxFlex.gt-md="0 1 24" fxFlex.gt-xs="0 1 calc(50% - 10px)" fxFlex="100">
+                        <mat-form-field class="w-full" appearance="fill">
+                            <mat-label>Отклонение</mat-label>
+                            <input matInput type="number" formControlName="drill_start_deviation" required>
+                            <mat-error *ngIf="form.controls.drill_start_deviation.invalid">
+                                {{getDrillStartDeviationErrorMessage()}}
+                            </mat-error>
+                            <button mat-icon-button *ngIf="form.controls.drill_start_deviation.value"
+                                matSuffix (click)="form.get('drill_start_deviation').setValue('')"
+                                matTooltip="Очистить">
+                                <mat-icon>close</mat-icon>
+                            </button>
+                        </mat-form-field>
+                    </div>
+                    <div fxFlex.gt-md="0 1 24" fxFlex.gt-xs="0 1 calc(50% - 10px)" fxFlex="100"
+                        class="mr10">
+                        <mat-form-field class="w-full" appearance="fill">
+                            <mat-label>Остаток нефти (м3)</mat-label>
+                            <input matInput type="number" formControlName="rest_oil" min="0" max="99"
+                                onKeyDown="if(this.value.length==2) return false;" required>
+                            <mat-error *ngIf="form.controls.rest_oil.invalid">
+                                {{getRestOilErrorMessage()}}
+                            </mat-error>
+                            <button mat-icon-button *ngIf="form.controls.rest_oil.value" matSuffix
+                                (click)="form.get('rest_oil').setValue('')" matTooltip="Очистить">
+                                <mat-icon>close</mat-icon>
+                            </button>
+                        </mat-form-field>
+                    </div>
+                    <div fxFlex.gt-md="0 1 24" fxFlex.gt-xs="0 1 calc(50% - 10px)" fxFlex="100">
+                        <mat-form-field class="w-full" appearance="fill">
+                            <mat-label>Процент жидкости</mat-label>
+                            <input matInput type="text" formControlName="percent_liquid" maxlength="5"
+                                required>
+                            <mat-error *ngIf="form.controls.percent_liquid.invalid">
+                                {{getRestSolutionErrorMessage()}}
+                            </mat-error>
+                            <button mat-icon-button *ngIf="form.controls.percent_liquid.value" matSuffix
+                                (click)="form.get('percent_liquid').setValue('')" matTooltip="Очистить">
+                                <mat-icon>close</mat-icon>
+                            </button>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div fxLayout="row" fxLayout.xs="column">
+                    <div fxFlex="100">
+                        <mat-form-field class="w-full" appearance="fill">
+                            <mat-label>Срочная потребность</mat-label>
+                            <textarea matInput formControlName="urgent_need" maxlength="500"></textarea>
+                            <mat-hint align="end">{{form.controls.urgent_need.value?.length || 0}}/500</mat-hint>
+                            <button mat-icon-button *ngIf="form.controls.urgent_need.value" matSuffix
+                                (click)="form.get('urgent_need').setValue('')" matTooltip="Очистить">
+                                <mat-icon>close</mat-icon>
+                            </button>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <mat-card>
+                    <h3>Проходка</h3>
+                    <div fxLayout="row wrap" fxLayoutAlign="space-between stretch">
+                        <div fxFlex.gt-md="0 1 32" fxFlex.gt-xs="0 1 calc(50% - 10px)" fxFlex="100">
+                            <mat-form-field class="w-full" appearance="fill">
+                                <mat-label>За день</mat-label>
+                                <input matInput type="number" formControlName="sinking_day" required>
+                                <mat-error *ngIf="form.controls.sinking_day.invalid">
+                                    {{getSinkingDayErrorMessage()}}
+                                </mat-error>
+                                <button mat-icon-button *ngIf="form.controls.sinking_day.value" matSuffix
+                                    (click)="form.get('sinking_day').setValue('')" matTooltip="Очистить">
+                                    <mat-icon>close</mat-icon>
+                                </button>
+                            </mat-form-field>
+                        </div>
+                        <div fxFlex.gt-md="0 1 32" fxFlex.gt-xs="0 1 calc(50% - 10px)" fxFlex="100">
+                            <mat-form-field class="w-full" appearance="fill">
+                                <mat-label>За месяц</mat-label>
+                                <input matInput type="number" formControlName="sinking_month" [attr.disabled]="true"
+                                    class="text-black">
+                                <button mat-icon-button *ngIf="form.controls.sinking_month.value" matSuffix
+                                    (click)="form.get('sinking_month').setValue('')" matTooltip="Очистить">
+                                    <mat-icon>close</mat-icon>
+                                </button>
+                            </mat-form-field>
+                        </div>
+                        <div fxFlex.gt-md="0 1 32" fxFlex="100">
+                            <mat-form-field class="w-full" appearance="fill">
+                                <mat-label>За год</mat-label>
+                                <input matInput type="number" formControlName="sinking_year" [attr.disabled]="true"
+                                    class="text-black">
+                                <button mat-icon-button *ngIf="form.controls.sinking_year.value" matSuffix
+                                    (click)="form.get('sinking_year').setValue('')" matTooltip="Очистить">
+                                    <mat-icon>close</mat-icon>
+                                </button>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </mat-card>
+                <div align="end">
+                    <button mat-raised-button color="primary" (click)="onSave()"
+                        [disabled]="form.invalid || form.disabled">Сохранить</button>
+                    <button mat-button color="warn" (click)="form.reset();">Отменить</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,33 @@
+{
+  "name": "ddr",
+  "version": "1.0.0",
+  "description": "Daily Drilling Report (DDR)",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index",
+    "server": "nodemon index",
+    "client": "npm run start --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "concurrently": "^5.2.0",
+    "nodemon": "^2.0.4"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.19.0",
+    "cache-all": "^2.0.4",
+    "cors": "^2.8.5",
+    "excel4node": "^1.7.2",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "moment": "^2.26.0",
+    "morgan": "^1.10.0",
+    "pg": "^8.2.1",
+    "pg-hstore": "^2.3.3",
+    "sequelize": "^5.21.13",
+    "sequelize-hierarchy": "^2.0.4"
+  }
+}

@@ -1,0 +1,14 @@
+<a mat-icon-button [matMenuTriggerFor]="menu" *ngIf="user">
+    <mat-icon>more_vert</mat-icon>
+</a>
+
+<mat-menu #menu="matMenu">
+    <a (click)="openDialog()" mat-menu-item>
+        <mat-icon>refresh</mat-icon>
+        <span>Cброс пароля</span>
+    </a>
+    <a (click)="onLogout($event)" mat-menu-item>
+        <mat-icon>exit_to_app</mat-icon>
+        <span>Выход</span>
+    </a>
+</mat-menu>

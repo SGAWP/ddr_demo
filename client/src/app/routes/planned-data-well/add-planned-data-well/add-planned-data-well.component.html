@@ -1,0 +1,227 @@
+<h2 mat-dialog-title>{{data.title}}</h2>
+<div mat-dialog-content>
+    <form [formGroup]="form">
+        <div fxLayout="row" fxLayout.xs="column">
+            <div class="mr10" fxFlex="50">
+                <mat-form-field class="w-full">
+                    <input matInput class="invisible" placeholder="Бригада" formControlName="masters_teams_id" required>
+                    <input matInput placeholder="Бригада" [attr.disabled]="true" formControlName="team_name"
+                        class="text-black" required>
+                    <button mat-flat-button color="primary" matSuffix (click)="openDialogMT()">
+                        <mat-icon>more_horiz</mat-icon>
+                    </button>
+                </mat-form-field>
+            </div>
+            <div fxFlex="50">
+                <mat-form-field class="w-full" appearance="fill">
+                    <mat-label>Мастер</mat-label>
+                    <input matInput [attr.disabled]="true" formControlName="master_name" class="text-black" required>
+                </mat-form-field>
+            </div>
+        </div>
+        <div fxLayout="row" fxLayout.xs="column">
+            <div class="mr10" fxFlex="50">
+                <mat-form-field class="w-full" appearance="fill">
+                    <mat-label>Помощник мастера</mat-label>
+                    <input matInput [attr.disabled]="true" formControlName="assistant_master" class="text-black">
+                </mat-form-field>
+            </div>
+            <div fxFlex="50">
+                <mat-form-field class="w-full" appearance="fill">
+                    <mat-label>Помощник мастера</mat-label>
+                    <input matInput [attr.disabled]="true" formControlName="second_assistant_master" class="text-black">
+                </mat-form-field>
+            </div>
+        </div>
+        <div fxLayout="row" fxLayout.xs="column">
+            <div class="mr10" fxFlex="50">
+                <mat-form-field class="w-full">
+                    <input matInput class="invisible" placeholder="Куст" formControlName="spr_wellplatforms_id"
+                        required>
+                    <input matInput placeholder="Куст" [attr.disabled]="true" formControlName="wellplatform_name"
+                        class="text-black" required>
+                    <button mat-flat-button color="primary" matSuffix (click)="openDialogWellplatforms()">
+                        <mat-icon>more_horiz</mat-icon>
+                    </button>
+                </mat-form-field>
+            </div>
+            <div fxFlex="50">
+                <mat-form-field class="w-full" appearance="fill">
+                    <mat-label>Месторождение</mat-label>
+                    <input matInput [attr.disabled]="true" formControlName="oilfield_short_name" class="text-black"
+                        required>
+                </mat-form-field>
+            </div>
+        </div>
+        <div fxLayout="row" fxLayout.xs="column">
+            <div class="mr10" fxFlex="50">
+                <mat-form-field class="w-full">
+                    <mat-label>Скважина</mat-label>
+                    <input matInput formControlName="well" required maxlength="4">
+                    <mat-error *ngIf="form.controls.well.invalid">
+                        {{getWellErrorMessage()}}
+                    </mat-error>
+                    <button mat-icon-button *ngIf="form.controls.well.value" matSuffix
+                        (click)="form.get('well').setValue('')" matTooltip="Очистить">
+                        <mat-icon>close</mat-icon>
+                    </button>
+                </mat-form-field>
+            </div>
+            <div fxFlex="50">
+                <mat-form-field class="w-full">
+                    <mat-label>Назначение</mat-label>
+                    <mat-select formControlName="spr_well_purposes_id" required>
+                        <mat-option *ngFor="let wellPurpose of wellPurposes" [value]="wellPurpose.well_purpose_id">
+                            {{wellPurpose.full_name}}
+                        </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="form.controls.spr_well_purposes_id.invalid">
+                        {{getWellPurposeErrorMessage()}}
+                    </mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+        <div fxLayout="row" fxLayout.xs="column">
+            <div class="mr10" fxFlex="50">
+                <mat-form-field class="w-full">
+                    <mat-label>Начало бурения</mat-label>
+                    <input matInput [owlDateTime]="ds" formControlName="drill_start" required>
+                    <mat-error *ngIf="form.controls.drill_start.invalid">
+                        {{getDrillStartErrorMessage()}}
+                    </mat-error>
+                    <button mat-icon-button matSuffix class="trigger" [owlDateTimeTrigger]="ds">
+                        <mat-icon>calendar_today</mat-icon>
+                    </button>
+                    <owl-date-time [firstDayOfWeek]="1" #ds></owl-date-time>
+                </mat-form-field>
+            </div>
+            <div fxFlex="50">
+                <mat-form-field class="w-full">
+                    <mat-label>Окончание бурения</mat-label>
+                    <input matInput [owlDateTime]="de" formControlName="drill_end" required>
+                    <mat-error *ngIf="form.controls.drill_end.invalid">
+                        {{getDrillEndErrorMessage()}}
+                    </mat-error>
+                    <button mat-icon-button matSuffix class="trigger" [owlDateTimeTrigger]="de">
+                        <mat-icon>calendar_today</mat-icon>
+                    </button>
+                    <owl-date-time [firstDayOfWeek]="1" #de></owl-date-time>
+                </mat-form-field>
+            </div>
+        </div>
+        <div fxLayout="row" fxLayout.xs="column">
+            <div class="mr10" fxFlex="50">
+                <mat-form-field class="w-full">
+                    <mat-label>Тип</mat-label>
+                    <mat-select formControlName="spr_types_id" required>
+                        <mat-option *ngFor="let type of types" [value]="type.type_id">
+                            {{type.type}}
+                        </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="form.controls.spr_types_id.invalid">
+                        {{getTypeErrorMessage()}}
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div fxFlex="50">
+                <mat-form-field class="w-full">
+                    <mat-label>Технология</mat-label>
+                    <mat-select formControlName="spr_technologies_id" required>
+                        <mat-option *ngFor="let technology of technologies" [value]="technology.technology_id">
+                            {{technology.technology}}
+                        </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="form.controls.spr_technologies_id.invalid">
+                        {{getTechnologyErrorMessage()}}
+                    </mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+        <div fxLayout="row" fxLayout.xs="column">
+            <div class="mr10" fxFlex="50">
+                <mat-form-field class="w-full">
+                    <mat-label>Заказчик</mat-label>
+                    <mat-select formControlName="spr_customers_id" required>
+                        <mat-option *ngFor="let customer of customers" [value]="customer.customer_id">
+                            {{customer.customer_name}}
+                        </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="form.controls.spr_customers_id.invalid">
+                        {{getCustomerErrorMessage()}}
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div fxFlex="50">
+                <mat-form-field class="w-full">
+                    <mat-label>Буровая установка</mat-label>
+                    <mat-select formControlName="spr_drillrigs_id" required>
+                        <mat-option *ngFor="let drillrig of drillrigs" [value]="drillrig.drillrig_id">
+                            {{drillrig.drillrig_name}}
+                        </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="form.controls.spr_drillrigs_id.invalid">
+                        {{getDrillrigErrorMessage()}}
+                    </mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+        <div fxLayout="row" fxLayout.xs="column">
+            <div class="mr10" fxFlex="50">
+                <mat-form-field class="w-full">
+                    <mat-label>Проектная глубина</mat-label>
+                    <input matInput type="number" formControlName="project_depth" min="0" max="9999"
+                        onKeyDown="if(this.value.length==4) return false;" required>
+                    <mat-error *ngIf="form.controls.project_depth.invalid">
+                        {{getProjectDepthErrorMessage()}}
+                    </mat-error>
+                    <button mat-icon-button *ngIf="form.controls.project_depth.value" matSuffix
+                        (click)="form.get('project_depth').setValue('')" matTooltip="Очистить">
+                        <mat-icon>close</mat-icon>
+                    </button>
+                </mat-form-field>
+            </div>
+            <div fxFlex="50">
+                <mat-form-field class="w-full">
+                    <mat-label>Пласт</mat-label>
+                    <input matInput formControlName="layer" maxlength="7">
+                    <button mat-icon-button *ngIf="form.controls.layer.value" matSuffix
+                        (click)="form.get('layer').setValue('')" matTooltip="Очистить">
+                        <mat-icon>close</mat-icon>
+                    </button>
+                </mat-form-field>
+            </div>
+        </div>
+        <div fxLayout="row" fxLayout.xs="column">
+            <div class="mr10" fxFlex="50">
+                <mat-form-field class="w-full">
+                    <mat-label>Диаметер</mat-label>
+                    <input matInput type="number" formControlName="diameter" min="0" max="999" required
+                        onKeyDown="if(this.value.length==3) return false;" />
+                    <mat-error *ngIf="form.controls.diameter.invalid">
+                        {{getDiameterErrorMessage()}}
+                    </mat-error>
+                    <button mat-icon-button *ngIf="form.controls.diameter.value" matSuffix
+                        (click)="form.get('diameter').setValue('')" matTooltip="Очистить">
+                        <mat-icon>close</mat-icon>
+                    </button>
+                </mat-form-field>
+            </div>
+            <div fxFlex="50">
+                <mat-form-field class="w-full">
+                    <mat-label>Башмак</mat-label>
+                    <input matInput type="number" formControlName="chock" min="0" max="9999"
+                        onKeyDown="if(this.value.length==4) return false;" />
+                    <button mat-icon-button *ngIf="form.controls.chock.value" matSuffix
+                        (click)="form.get('chock').setValue('')" matTooltip="Очистить">
+                        <mat-icon>close</mat-icon>
+                    </button>
+                </mat-form-field>
+            </div>
+        </div>
+    </form>
+</div>
+<div mat-dialog-actions align="end">
+    <button mat-button color="primary" [mat-dialog-close]="true" (click)="onSave()"
+        [disabled]="form.invalid || form.disabled">Сохранить</button>
+    <button mat-button color="warn" [mat-dialog-close] cdkFocusInitial>Отменить</button>
+</div>

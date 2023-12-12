@@ -1,0 +1,27 @@
+.mat-datepicker-toggle {
+    color: white;
+}
+
+.mr {
+    margin-right: 10px;
+}
+
+@media screen and (max-width: 600px) {
+    .mr {
+        margin-right: 5px;
+    }
+}
+
+.w130 {
+    width: 130px;
+}
+
+.display {
+    display: inline;
+}
+
+@media screen and (max-width: 600px) {
+    .display {
+        display: none;
+    }
+}

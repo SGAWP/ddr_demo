@@ -1,0 +1,26 @@
+<h2 mat-dialog-title>{{data.title}}</h2>
+<div mat-dialog-content>
+    <form [formGroup]="form">
+        <div fxLayout="row" fxLayout.xs="column">
+            <div fxFlex="100">
+                <mat-form-field class="w-full">
+                    <mat-label>Проходка за месяц </mat-label>
+                    <input matInput type="number" formControlName="sinking_month" min="0" max="99999"
+                        onKeyDown="if(this.value.length==5) return false;" required>
+                    <mat-error *ngIf="form.controls.sinking_month.invalid">
+                        {{getSinkingMonthErrorMessage()}}
+                    </mat-error>
+                    <button mat-icon-button *ngIf="form.controls.sinking_month.value" matSuffix
+                        (click)="form.get('sinking_month').setValue('')" matTooltip="Очистить">
+                        <mat-icon>close</mat-icon>
+                    </button>
+                </mat-form-field>
+            </div>
+        </div>
+    </form>
+</div>
+<div mat-dialog-actions align="end">
+    <button mat-button color="primary" [mat-dialog-close]="true" (click)="onSave()"
+        [disabled]="form.invalid || form.disabled">Сохранить</button>
+    <button mat-button color="warn" [mat-dialog-close] cdkFocusInitial>Отменить</button>
+</div>

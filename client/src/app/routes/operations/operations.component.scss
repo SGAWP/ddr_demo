@@ -1,0 +1,35 @@
+.example-tree-invisible {
+    display: none;
+}
+
+.example-tree ul,
+.example-tree li {
+    margin-top     : 0;
+    margin-bottom  : 0;
+    list-style-type: none;
+}
+
+.example-tree {
+    position: relative;
+}
+
+.example-tree-node-name {
+    flex: 1 1 auto;
+}
+
+li::before {
+    height       : 3rem;
+    position     : absolute;
+    left         : 0;
+    right        : 0;
+    border-bottom: #eeeeee 1px solid;
+    content      : ' ';
+}
+
+::ng-deep  .mat-slide-toggle-content {
+    white-space: normal  !important;
+}
+
+.mat-slide-toggle {
+    margin-top: 15px !important;
+}

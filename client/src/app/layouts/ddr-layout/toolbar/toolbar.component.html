@@ -1,0 +1,24 @@
+<mat-toolbar class="ddr-toolbar">
+  <button mat-button class="ddr-hamburger" (click)="toggleSidenav.emit()" *ngIf="showToggle">
+    <mat-icon>menu</mat-icon>
+  </button>
+
+  <app-branding *ngIf="showBranding"></app-branding>
+  <span fxFlex></span>
+
+  <button mat-icon-button (click)="fullscreen()" matTooltip="Полноэкранный режим" fxHide.lt-sm>
+    <mat-icon>fullscreen</mat-icon>
+  </button>
+
+  <button mat-button [matMenuTriggerFor]="svod" matTooltip="Отчеты" color="primary">
+    <mat-icon>cloud_download</mat-icon>
+  </button>
+
+  <mat-menu #svod="matMenu">
+    <button mat-menu-item (click)="openDialogSvod()">Суточная сводка</button>
+    <button mat-menu-item (click)="openDialogStatesReport()">Сводка по БУРЕНИЮ</button>
+  </mat-menu>
+
+  <app-user></app-user>
+
+</mat-toolbar>
